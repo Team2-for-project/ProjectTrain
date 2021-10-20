@@ -1,6 +1,6 @@
 package model;
 
-public class Passenger extends Train implements Comparable<Passenger> {
+public class Passenger implements Comparable<Passenger> {
     private String name;
     private int age;
     private char gender;
@@ -40,6 +40,13 @@ public class Passenger extends Train implements Comparable<Passenger> {
 
     @Override
     public int compareTo(Passenger o) {
-        return this.name.compareTo(o.getName());
+        return 0;
+    }
+
+    @Override
+    public String toString() {
+        return "name='" + name + '\'' +
+                ", age=" + age +
+                ", gender=" + gender;
     }
 }

@@ -8,7 +8,7 @@ public class Train {
     public Train()  {
     }
 
-    public Train(int trainNo, String trainName, String source, String destination, int ticketPrice) {
+    public Train(int trainNo, String trainName, String source, String destination,double ticketPrice) {
         this.trainNo = trainNo;
         this.trainName = trainName;
         this.source = source;
@@ -52,13 +52,13 @@ public class Train {
         return ticketPrice;
     }
 
-    public void setTicketPrice(int ticketPrice) {
+    public void setTicketPrice(double ticketPrice) {
         this.ticketPrice = ticketPrice;
     }
 
     @Override
     public String toString() {
-        return "model.getTrainDetails{" +
+        return "{" +
                 "trainNo=" + trainNo +
                 ", trainName='" + trainName + '\'' +
                 ", source='" + source + '\'' +

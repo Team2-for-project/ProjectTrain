@@ -1,36 +1,53 @@
 package Driver;
-
 import Jdbc.classTrainDAO;
-import model.Train;
-
+import model.*;
+import java.text.ParseException;
+import java.util.Date;
 import java.sql.*;
+import java.text.*;
 import java.util.Scanner;
 
 public class TicketApplication {
-    static Connection connection;
-    public static void main(String[] args) {
-        try{
-            Scanner scan=new Scanner(System.in);
-            Class.forName("com.mysql.jdbc.Driver");
-            String url="jdbc:mysql://localhost:3306/traindetails";
-            String username="root";
-            String password="Elonmusk@123";
-            connection= DriverManager.getConnection(url,username,password);
-            System.out.println("Connected to DB");
-            System.out.println();
-            Statement statement=connection.createStatement();
-            System.out.println("Enter the Train number");
-            int trainNumber=scan.nextInt();
-            ResultSet trainDetails=statement.executeQuery(classTrainDAO.findTrain(trainNumber));
-           // classTrainDAO.printTrainDetails(trainDetails);
-        }catch (ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
+    public static void main(String[] args) throws ParseException {
+        Scanner scan=new Scanner(System.in);
+        System.out.println("Enter the Train number");
+        Date travelDate;
+        String dateString;
+        int trainNumber=scan.nextInt();
+        Train train=classTrainDAO.findTrain(trainNumber);
+
+        System.out.println("Enter the date you want to travel:");
+        Date d=new Date();
+        SimpleDateFormat s=new SimpleDateFormat("dd/MM/yyyy");
+        Date currentDate=d;
+        while (true) {
+            dateString=scan.next();
+            travelDate = s.parse(dateString);
+                if (travelDate.compareTo(currentDate)<0) {
+                    System.out.println("Enter a correct date");
+                }
+                else {
+                    break;
+                }
         }
-        //System.out.println("Enter trail details:");
 
+        System.out.println("Enter total number of passengers:");
+        int noOfPassengers= scan.nextInt();
+        Ticket ticket=new Ticket(train,dateString);
+        Passenger passenger;
+        for(int i=1;i<=noOfPassengers;i++) {
+            System.out.println("Enter details of Passenger "+i);
+            System.out.println("Enter Passenger Name:");
+            String name=scan.next();
+            System.out.println("Enter Passenger Age:");
+            int age=scan.nextInt();
+            System.out.println("Enter Passenger Gender:");
+            char gender=scan.next().charAt(0);
+            ticket.addPassengers(name,age,gender);
+        }
 
-
-
-
+        ticket.writeTicket();
+        System.out.println("Ticket booked successfully");
     }
+
 }
