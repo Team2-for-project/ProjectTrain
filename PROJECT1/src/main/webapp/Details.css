@@ -1,0 +1,12 @@
+html {
+  margin: 0;
+}
+ body{
+  font-size: .8em
+  color:black;
+
+
+  background-size:cover;
+  background-image:url("white.jpg");
+  background-repeat:no-repeat;
+}
